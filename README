@@ -1,0 +1,17 @@
+Description:
+
+In one of my projects I found myself in the odd position where I had data in a YAML file, that needed some processing done on and then being inserted into a CoffeeScript file.
+
+Now I could've just done a YAML to JSON conversion, but seeing as I had the intermediate Ruby processing steps and because I really wanted the output to be CoffeeScript as I was likely to have to work and manipulate it further later anyway, and would want to make changes to the CS directly instead of parsing the whole beast again.
+
+So after loading the YAML into a Ruby hash and manipulating it appropriately I needed to do the conversion to CoffeeScript.
+
+This is my solution:
+
+usage:
+    
+  proc = Proc.new do |output| 
+    coffee_script_file.puts output
+  end
+
+  HashToCs.convert(ruby_hash, "", proc)
