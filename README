@@ -14,4 +14,4 @@ usage:
     coffee_script_file.puts output
   end
 
-  HashToCs.convert(ruby_hash, "", proc)
+  HashToCs.convert(ruby_hash, 2, proc)
