@@ -28,18 +28,23 @@ module HashToCS
     spaces = " " * spaces
     case input
     when String
-      proc.call spaces + '"' + input + '"' + "\n"
+      q = if input =~ /\n/
+        '"""'
+      else
+        '"'
+      end
+      proc.call spaces + q + input + q + "\n"
     when Array
       proc.call spaces + "[\n"
       input.each do |a|
-        convert(a, spaces + "  ", proc)
+        convert(a, spaces.size + 2, proc)
       end
       proc.call spaces + "]\n"
     when Hash
       proc.call spaces + "{\n"
       input.each do |k, v|
         proc.call spaces + "  #{k}:\n"
-        convert(v, spaces + "    ", proc)
+        convert(v, spaces.size + 4, proc)
       end
       proc.call spaces + "}\n"
     else
